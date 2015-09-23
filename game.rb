@@ -4,7 +4,9 @@ module TicTacToe
   class Game
     
     Players = [:X, :O]
+    
     attr_reader :board, :current_player, :other_player
+    
     def initialize(board = Board.new)
       @board = board
       @current_player, @other_player = Players.shuffle
@@ -35,10 +37,12 @@ module TicTacToe
       invalid_stdout = "Ignoring this invalid step, pls try again."
       while human_move = gets.chomp
         valid_step = false
-        if human_move =~ /\d/
+        if human_move =~ /\d/  #only 1-9 number
           x, y = human_move_to_coordinate(human_move)
           valid_step = board.set_cell(x, y, current_player)
         end
+        
+        #ignore those invalid steps
         unless valid_step  
           puts invalid_stdout
           next
